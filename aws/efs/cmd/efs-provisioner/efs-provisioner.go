@@ -44,6 +44,7 @@ const (
 	fileSystemIDKey    = "FILE_SYSTEM_ID"
 	awsRegionKey       = "AWS_REGION"
 	dnsNameKey         = "DNS_NAME"
+	clusterPrefix 	   = "PREFIX"
 )
 
 type efsProvisioner struct {
@@ -232,7 +233,11 @@ func (p *efsProvisioner) getRemotePath(options controller.ProvisionOptions) stri
 }
 
 func (p *efsProvisioner) getDirectoryName(options controller.ProvisionOptions) string {
-	return options.PVC.Name + "-" + options.PVName
+	clusterPrefix := os.Getenv(clusterPrefix)
+	if clusterPrefix == ""{
+		return options.PVC.Namespace + "/" + options.PVC.Name
+	}
+	return clusterPrefix + "/" + options.PVC.Namespace + "/" + options.PVC.Name
 }
 
 // Delete removes the storage asset that was created by Provision represented
