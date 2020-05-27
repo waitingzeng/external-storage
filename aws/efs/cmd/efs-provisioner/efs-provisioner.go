@@ -249,14 +249,14 @@ func (p *efsProvisioner) Delete(volume *v1.PersistentVolume) error {
 		return err
 	}
 
-	path, err := p.getLocalPathToDelete(volume.Spec.NFS)
-	if err != nil {
-		return err
-	}
+	//path, err := p.getLocalPathToDelete(volume.Spec.NFS)
+	//if err != nil {
+	//	return err
+	//}
 
-	if err := os.RemoveAll(path); err != nil {
-		return err
-	}
+	//if err := os.RemoveAll(path); err != nil {
+	//	return err
+	//}
 
 	return nil
 }
